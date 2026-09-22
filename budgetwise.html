@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BudgetWise: a personal finance pipeline, built on data that fights back — Arsh Kaur</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">arsh<span class="dot">·</span>log</a>
+    <nav class="site-nav">
+      <a href="index.html" class="current">Entries</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <a class="back-link" href="index.html">&larr; All entries</a>
+    <article>
+      <div class="art-head">
+        <span class="tag" style="--tag-color:var(--accent-violet)">Data Engineering · Personal Finance</span>
+        <span class="status shipping"><span class="dot"></span>shipping</span>
+        <h1>BudgetWise: a personal finance pipeline, built on data that fights back</h1>
+        <p class="dek">The first in a planned three-project portfolio series, each mirroring the React + FastAPI stack from ER Navigator. This one turns a deliberately messy Kaggle personal-finance dataset into a categorization pipeline with an explainable decision layer.</p>
+        <p class="art-meta mono">Personal Project · Series 1 of 3</p>
+      </div>
+      <h2>Why this dataset</h2><p>Two versions of the BudgetWise Personal Finance dataset were available on Kaggle — a cleaned one and a messy one. I picked the messy one on purpose: inconsistent currency symbols (₹, $, Rs., INR), mixed date formats, and sentinel values standing in for missing data are exactly the problems a production pipeline actually has to handle.</p><h2>Where it stands</h2><ul class="notes"><li>Repo and environment set up, with a data / notebooks / src structure and profiling findings committed to GitHub.</li><li>Cleaning pass done: deduplicated records, regenerated reliable transaction IDs, normalized categories and payment modes, stripped currency symbols and converted amounts to numeric, and replaced sentinel values with proper nulls.</li><li>Date parsing across the dataset's multiple formats is designed and next up to run.</li></ul><h2>Coming next</h2><ul class="notes"><li>Finish date parsing, then refactor the cleaning notebook into reusable functions.</li><li>Build the feature engineering layer.</li><li>Train a transaction categorization model with an explainable decisions layer.</li><li>Expose it through FastAPI and put a React dashboard on top.</li></ul>
+      <div class="credit-box">In progress · Personal project, Series 1 of 3</div>
+      <a class="back-link" href="index.html">&larr; All entries</a>
+    </article>
+  </div>
+  <footer class="site">
+  <div class="wrap">
+    <span>© 2026 Arsh Kaur</span>
+    <span class="mono">status: shipping</span>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>

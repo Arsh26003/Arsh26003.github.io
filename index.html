@@ -4,275 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Arsh Kaur — Build Log</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #F1F2F4;
-    --surface: #FFFFFF;
-    --text: #14161A;
-    --muted: #5B5F68;
-    --border: #DADCE1;
-    --accent-amber: #C97A2B;
-    --accent-blue: #2563A6;
-    --accent-teal: #2C8C7C;
-    --accent-violet: #6552C4;
-    box-sizing: border-box;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #101216;
-      --surface: #181B20;
-      --text: #EDEDE7;
-      --muted: #9497A0;
-      --border: #262A31;
-      --accent-amber: #E8A857;
-      --accent-blue: #6FA8DC;
-      --accent-teal: #5FC4B0;
-      --accent-violet: #A79BE8;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #101216;
-    --surface: #181B20;
-    --text: #EDEDE7;
-    --muted: #9497A0;
-    --border: #262A31;
-    --accent-amber: #E8A857;
-    --accent-blue: #6FA8DC;
-    --accent-teal: #5FC4B0;
-    --accent-violet: #A79BE8;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.5;
-  }
-  a { color: inherit; }
-  .mono {
-    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  }
-  .wrap {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-  header.site {
-    position: sticky;
-    top: 0;
-    top: env(safe-area-inset-top, 0px);
-    z-index: 10;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border);
-  }
-  header.site .wrap {
-    max-width: 760px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 18px;
-    padding-bottom: 18px;
-  }
-  .brand {
-    font-weight: 600;
-    font-size: 17px;
-    text-decoration: none;
-    letter-spacing: -0.01em;
-  }
-  .brand .dot { color: var(--accent-amber); }
-  nav.site-nav {
-    display: flex;
-    gap: 20px;
-    font-size: 14px;
-  }
-  nav.site-nav a { text-decoration: none; color: var(--muted); }
-  nav.site-nav a:hover { color: var(--text); }
-
-  main { min-height: 60vh; }
-
-  /* ---- Home / hero ---- */
-  .hero {
-    padding: 64px 0 40px;
-  }
-  .hero h1 {
-    font-size: clamp(30px, 6vw, 44px);
-    line-height: 1.15;
-    margin: 0 0 18px;
-    letter-spacing: -0.015em;
-    max-width: 16ch;
-  }
-  .hero p.lede {
-    font-size: 17px;
-    color: var(--muted);
-    max-width: 54ch;
-    margin: 0 0 8px;
-  }
-  .hero .meta-line {
-    margin-top: 22px;
-    font-size: 13px;
-    color: var(--muted);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 14px;
-  }
-  .hero .meta-line span { white-space: nowrap; }
-
-  /* ---- Log list ---- */
-  .log-heading {
-    font-size: 13px;
-    color: var(--muted);
-    margin: 48px 0 14px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-  }
-  .status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    padding: 3px 9px;
-    border-radius: 100px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    white-space: nowrap;
-  }
-  .status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
-  .status.shipping { color: var(--accent-amber); border-color: color-mix(in srgb, var(--accent-amber) 50%, var(--border)); }
-  .status.shipping .dot { background: var(--accent-amber); animation: pulse 1.6s ease-in-out infinite; }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
-  @media (prefers-reduced-motion: reduce) { .status.shipping .dot { animation: none; } }
-
-  ul.log { list-style: none; margin: 0 0 60px; padding: 0; }
-  ul.log li { border-bottom: 1px solid var(--border); }
-  ul.log li:first-child { border-top: 1px solid var(--border); }
-  a.entry, div.entry {
-    display: grid;
-    grid-template-columns: 84px 1fr auto;
-    gap: 16px;
-    align-items: baseline;
-    padding: 18px 4px;
-    text-decoration: none;
-    color: var(--text);
-    border-radius: 6px;
-  }
-  a.entry:hover { background: color-mix(in srgb, var(--accent-amber) 7%, transparent); }
-  .entry .date { font-size: 12px; color: var(--muted); }
-  .entry .info .title { font-size: 16px; font-weight: 600; margin: 0 0 3px; }
-  .entry .info .summary { font-size: 14px; color: var(--muted); margin: 0; max-width: 48ch; }
-  .entry .readout { font-size: 12px; text-align: right; white-space: nowrap; align-self: center; }
-  @media (max-width: 560px) {
-    .entry { grid-template-columns: 1fr; gap: 4px; }
-    .entry .readout { text-align: left; }
-  }
-
-  footer.site {
-    border-top: 1px solid var(--border);
-    padding: 28px 0 48px;
-    font-size: 13px;
-    color: var(--muted);
-  }
-  footer.site .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-
-  /* ---- Article ---- */
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin: 28px 0 0;
-    font-size: 14px;
-    text-decoration: none;
-    color: var(--muted);
-  }
-  .back-link:hover { color: var(--text); }
-  article { padding-bottom: 60px; }
-  article .art-head { padding: 20px 0 30px; border-bottom: 1px solid var(--border); margin-bottom: 30px; }
-  article .art-head .tag {
-    display: inline-block;
-    font-size: 12px;
-    padding: 3px 9px;
-    border-radius: 100px;
-    border: 1px solid var(--tag-color, var(--accent-amber));
-    color: var(--tag-color, var(--accent-amber));
-    margin-bottom: 14px;
-  }
-  article h1 {
-    font-size: clamp(26px, 5vw, 36px);
-    line-height: 1.2;
-    margin: 0 0 12px;
-    letter-spacing: -0.01em;
-  }
-  article .dek { font-size: 16px; color: var(--muted); max-width: 60ch; margin: 0 0 14px; }
-  article .art-meta { font-size: 13px; color: var(--muted); }
-  article h2 {
-    font-size: 19px;
-    margin: 36px 0 12px;
-    letter-spacing: -0.005em;
-  }
-  article p { font-size: 15.5px; max-width: 66ch; margin: 0 0 14px; color: var(--text); }
-  article ul.notes { margin: 0 0 14px; padding-left: 20px; max-width: 66ch; }
-  article ul.notes li { font-size: 15.5px; margin-bottom: 8px; }
-
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 8px 0 26px;
-  }
-  .stat-grid .stat {
-    background: var(--surface);
-    padding: 16px;
-  }
-  .stat-grid .stat .val {
-    font-size: 20px;
-    font-weight: 600;
-  }
-  .stat-grid .stat .label {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-
-  .credit-box {
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 18px;
-    font-size: 14px;
-    color: var(--muted);
-    margin-top: 30px;
-  }
-
-  #view { display: none; }
-  #view.active { display: block; }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="#/">arsh<span class="dot">·</span>log</a>
+    <a class="brand" href="index.html">arsh<span class="dot">·</span>log</a>
     <nav class="site-nav">
-      <a href="#/">Entries</a>
-      <a href="#/about">About</a>
+      <a href="index.html" class="current">Entries</a>
+      <a href="about.html">About</a>
       <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <div id="home" class="wrap view active">
+  <div class="wrap">
     <section class="hero">
       <h1>I build ML systems that hold up outside the notebook.</h1>
       <p class="lede">Arsh Kaur — AI Engineering, Centennial College. Applied machine learning with a data-heavy focus: getting models from a clean dataset to something that survives real traffic, messy inputs, and a deadline.</p>
@@ -286,369 +37,71 @@
     </section>
 
     <h2 class="log-heading">Build log</h2>
-    <ul class="log" id="log-list"></ul>
-
-    <footer class="site">
-      <div class="wrap" style="padding:0;">
-        <span>© 2026 Arsh Kaur</span>
-        <span class="mono">status: shipping</span>
-      </div>
-    </footer>
-  </div>
-
-  <div id="article" class="wrap view"></div>
-
-  <div id="about" class="wrap view">
-    <section class="hero">
-      <h1>Hi, I'm Arsh.</h1>
-      <p class="lede">I'm an AI Engineering grad who likes the unglamorous half of machine learning — the part after the notebook, where a model has to survive real traffic, messy data, and a deadline. That's the thread running through ER Navigator, ExoGenAI, and the coursework below: not just "does it work," but "does it hold up."</p>
-      <p class="lede">I graduated from Centennial College's Software Engineering Technology – AI program in December 2025 with a 4.4 GPA, and I'm currently looking for AI/ML engineering roles.</p>
-    </section>
-
-    <div class="stat-grid" style="margin-bottom:40px;">
-      <div class="stat"><div class="val mono">4.4</div><div class="label">GPA, Software Engineering Tech – AI</div></div>
-      <div class="stat"><div class="val mono">Dec 2025</div><div class="label">Graduated, Centennial College</div></div>
-      <div class="stat"><div class="val mono">3</div><div class="label">Co-op placements</div></div>
-      <div class="stat"><div class="val mono">1</div><div class="label">Published paper</div></div>
-    </div>
-
-    <h2 class="log-heading">Experience</h2>
     <ul class="log">
-      <li><div class="entry">
-        <span class="date mono">2026</span>
-        <span class="info">
-          <p class="title">Application Developer Contract — University of Toronto</p>
-          <p class="summary">Ran two workstreams: evaluating AI coding tools (Cursor, GitHub Copilot, Junie, MCP) across three teams and delivering executive-facing comparisons, plus support and QA on the Academic HR Portal (Laravel/Vue.js).</p>
-        </span>
-        <span class="readout mono">Feb–Jul 2026</span>
-      </div></li>
-      <li><div class="entry">
-        <span class="date mono">Co-op</span>
-        <span class="info">
-          <p class="title">Technical Analyst — University of Toronto</p>
-          <p class="summary">Migrated Cisco VOIP to Microsoft Teams for 500+ users; worked with BlueCat and KACE.</p>
-        </span>
-        <span class="readout mono"></span>
-      </div></li>
-      <li><div class="entry">
-        <span class="date mono">Co-op</span>
-        <span class="info">
-          <p class="title">Business Transformation Analyst — City of Toronto</p>
-          <p class="summary">Business and process transformation work on the City's technology initiatives.</p>
-        </span>
-        <span class="readout mono"></span>
-      </div></li>
-      <li><div class="entry">
-        <span class="date mono">Co-op</span>
-        <span class="info">
-          <p class="title">Business and IT Architecture Analyst — Centennial College</p>
-          <p class="summary">IT architecture and business analysis work within the college.</p>
-        </span>
-        <span class="readout mono"></span>
-      </div></li>
-    </ul>
-
-    <h2 class="log-heading">Research &amp; recognition</h2>
-    <p style="max-width:66ch; font-size:15.5px; margin-bottom:26px;">Published a BERT-based mental health classifier through Canadian Science Publishing, co-authoring the underlying research. Later guest lectured on the work at the University of Toronto. ExoGenAI, built at NASA's Space Apps Challenge 2025, went on to win three awards.</p>
-
-    <h2 class="log-heading">Currently exploring</h2>
-    <p style="max-width:66ch; font-size:15.5px; margin-bottom:60px;">Working with ServiceNow, part of the Cohere Open Science Community, and currently digging into quantum machine learning.</p>
-  </div>
-</main>
-
-<script>
-const posts = [
-  {
-    id: "er-navigator",
-    date: "2025",
-    status: "done",
-    dateLabel: "COMP 385 Capstone",
-    tag: "Healthcare · Forecasting",
-    tagColor: "var(--accent-amber)",
-    title: "ER Navigator: predicting wait times across 20 GTHA hospitals",
-    summary: "A 5-model stacking ensemble taken from proof-of-concept to a production FastAPI + React system.",
-    readout: "24.48 min MAE",
-    dek: "A stacking ensemble that predicts emergency room wait times at 30, 60, and 120-minute horizons across the Greater Toronto and Hamilton Area, built as a capstone project and pushed into a running production system.",
-    sections: [
-      {
-        h: "The problem",
-        body: [
-          "ER Navigator predicts emergency room wait times at 30, 60, and 120-minute horizons for 20 hospitals across the Greater Toronto and Hamilton Area. The target was ambitious going in: a mean absolute error under 30 minutes at the 60-minute horizon, with at least a 20% improvement over baseline methods.",
-          "Built with a team of five — Jaekyeong, Miguel, Varun, Younghun, and myself — under the supervision of Professor Mayy Habayeb, integrating live data from the ER Watch API alongside Environment Canada weather feeds."
-        ]
-      },
-      {
-        h: "Architecture",
-        body: [
-          "The core model is a 5-model stacking ensemble — LightGBM, XGBoost, CatBoost, Quantile Random Forest, and LightGBM Quantile — feeding an XGBoost meta-learner. 47 engineered features span temporal patterns, lag values, rolling statistics, hospital-specific aggregates, and weather.",
-          "What started as proof-of-concept modeling became a full production system: PostgreSQL for storage, FastAPI serving predictions, and a React frontend with interactive maps (react-leaflet) showing live wait-time estimates. The backend scrapes ER Watch every 15 minutes and layers conformal prediction on top of the point forecasts, giving 80% and 95% confidence intervals instead of a single misleading number."
-        ]
-      },
-      {
-        h: "Results",
-        stats: [
-          { val: "24.48 min", label: "MAE @ 60-min horizon" },
-          { val: "33%", label: "improvement over baseline" },
-          { val: "99.98%", label: "success rate under load" },
-          { val: "33.8 ms", label: "avg. response time" }
-        ],
-        body: [
-          "The final numbers beat the original target by 18%. Stress testing — after moving to a multi-worker Uvicorn setup with connection pooling — held a 99.98% success rate at 36+ requests per second, with an average response time of 33.8 milliseconds."
-        ]
-      },
-      {
-        h: "What actually mattered",
-        list: [
-          "Tree-based models beat classical time-series approaches by a wide margin — neural nets performed 4.3× worse than the tree ensemble.",
-          "Weather features were paradoxical: they hurt individual models but helped once the meta-learner combined everything.",
-          "Data quality was the real bottleneck. Only 21.73% of intervals landed within ±5 seconds of the expected 15-minute spacing, which meant resampling before any model would behave.",
-          "Temporal and lag features dominated feature importance — recent hospital state predicts near-term wait times better than almost anything else.",
-          "A simple persistence baseline is deceptively strong for short-horizon ER forecasting, since wait times are highly autocorrelated over 60 minutes."
-        ]
-      }
-    ],
-    credit: "Team: Jaekyeong, Miguel, Varun, Younghun · Supervisor: Prof. Mayy Habayeb · Centennial College, COMP 385"
-  },
-  {
-    id: "exogenai",
-    date: "2025",
-    status: "done",
-    dateLabel: "NASA Space Apps 2025",
-    tag: "Astronomy · Deep Learning",
-    tagColor: "var(--accent-blue)",
-    title: "ExoGenAI: a hybrid exoplanet detector for real telescope data",
-    summary: "Physics-based pre-filtering plus a CNN-Transformer, born as a Space Apps entry, now being rebuilt on raw data.",
-    readout: "99.1% accuracy",
-    dek: "A hybrid exoplanet detection system that pairs the Box Least Squares algorithm with a CNN-Transformer classifier — started as a NASA Space Apps Challenge entry, now being rebuilt to handle raw telescope data instead of pre-cleaned datasets.",
-    sections: [
-      {
-        h: "The problem",
-        body: [
-          "ExoGenAI analyzes stellar light curves from space telescopes to classify confirmed exoplanets, candidates, and false positives — with enough transparency that an astronomer can see why the model made its call, not just trust a black box.",
-          "It started as a winning entry at NASA's Space Apps Challenge 2025 and has since become an ongoing effort to turn that prototype into a tool that fits real astronomical workflows. I handle model training and the backend; teammates handle frontend integration and presentation."
-        ]
-      },
-      {
-        h: "Architecture",
-        body: [
-          "The core idea is hybrid by design: the Box Least Squares (BLS) algorithm does physics-based pre-filtering before a CNN-Transformer network — 2.5 million parameters — handles classification. Pairing a physics-grounded filter with a learned model was a deliberate choice to keep the system interpretable rather than just accurate.",
-          "The backend runs on FastAPI, with Lightkurve handling astronomical data preprocessing ahead of the model."
-        ]
-      },
-      {
-        h: "Results",
-        stats: [
-          { val: "99.1%", label: "classification accuracy" },
-          { val: "2.5M", label: "model parameters" },
-          { val: "3", label: "hackathon awards" }
-        ],
-        body: [
-          "The hackathon build placed strongly enough to earn three awards at Space Apps 2025. The honest caveat: it was trained on just over 5,000 samples from a single pre-processed dataset, which is nowhere near enough for real telescope observations — and that gap became the next phase of the project."
-        ]
-      },
-      {
-        h: "Rebuilding on raw data",
-        body: [
-          "Pre-processed, competition-ready data produces a model that doesn't survive contact with real telescope output — raw data needs its own preprocessing pipeline that a cleaned Kaggle dataset can't teach you. That realization drove a pivot toward Lightkurve, the NASA Exoplanet Archive, and the MAST Archive as raw data sources, with a goal of scaling training data past 50,000 samples across Kepler-confirmed planets, false positives, candidates, and TESS mission data."
-        ]
-      },
-      {
-        h: "What actually mattered",
-        list: [
-          "Astronomical data is genuinely, not artificially, imbalanced — 99%+ false positives — which called for weighted cross-entropy loss rather than more data cleaning.",
-          "The hybrid approach earns its complexity: physics-based validation plus deep learning gives both performance and the interpretability real astronomical workflows need.",
-          "Polished hackathon documentation and the underlying codebase diverge more than expected — worth auditing what actually exists before planning the next phase.",
-          "Since NASA data is public domain, open-sourcing the model is confirmed to be legally viable."
-        ]
-      }
-    ],
-    credit: "NASA Space Apps Challenge 2025 · Data: Lightkurve, NASA Exoplanet Archive, MAST Archive"
-  },
-  {
-    id: "marine-species-classification",
-    date: "2025",
-    status: "done",
-    dateLabel: "Deep Learning Coursework",
-    tag: "Computer Vision · Deep Learning",
-    tagColor: "var(--accent-teal)",
-    title: "Three ways to classify marine species, compared head to head",
-    summary: "A controlled comparison of custom CNNs, autoencoder pre-training, and transfer learning on the same dataset.",
-    readout: "3 methods",
-    dek: "A six-person coursework project that put three deep learning approaches — a custom CNN, unsupervised autoencoder pre-training, and transfer learning — through the same marine species classification task, to see which assumptions actually held up.",
-    sections: [
-      {
-        h: "The setup",
-        body: [
-          "Rather than picking one architecture and tuning it, the project was built as a controlled comparison: run a custom CNN, an autoencoder-based unsupervised approach, and transfer learning against the same marine species dataset and see where each one actually breaks down. Working in a six-person team, the goal was as much about understanding relative strengths and failure modes as it was about raw accuracy.",
-          "The dataset came with real-world friction from the start — class imbalance and a scope that had to be adjusted once the original plan turned out to be computationally infeasible on the hardware available."
-        ]
-      },
-      {
-        h: "Approach",
-        body: [
-          "The comparison spanned custom CNN architectures, unsupervised learning with autoencoders, and transfer learning using pre-trained models — including VGG-style networks, ResNet50, and EfficientNet on top of ImageNet weights. Class imbalance was handled with weighted loss functions rather than just resampling.",
-          "Partway through, the toolchain moved from TensorFlow to PyTorch for better GPU compatibility, training on an RTX 3070."
-        ]
-      },
-      {
-        h: "What actually mattered",
-        list: [
-          "Model complexity has to match dataset size — the more expressive architectures overfit fastest when labeled data was limited.",
-          "Supervised learning clearly outperformed unsupervised pre-training once enough labeled data was available, which wasn't a given going in.",
-          "Transfer learning delivered the most reliable gains of the three, leveraging ImageNet pre-training rather than learning marine-specific features from scratch.",
-          "Scope has to flex with compute — when the original plan proved computationally infeasible, adjusting scope rather than forcing it through was what kept the comparison meaningful."
-        ]
-      }
-    ],
-    credit: "Six-person team project · Deep Learning coursework"
-  },
-  {
-    id: "budgetwise",
-    date: "2026",
-    status: "shipping",
-    dateLabel: "Personal Project · Series 1 of 3",
-    tag: "Data Engineering · Personal Finance",
-    tagColor: "var(--accent-violet)",
-    title: "BudgetWise: a personal finance pipeline, built on data that fights back",
-    summary: "First of a three-project series — deliberately picked a messy dataset over a clean one to practice real-world data problems.",
-    readout: "cleaning → modeling",
-    dek: "The first in a planned three-project portfolio series, each mirroring the React + FastAPI stack from ER Navigator. This one turns a deliberately messy Kaggle personal-finance dataset into a categorization pipeline with an explainable decision layer.",
-    sections: [
-      {
-        h: "Why this dataset",
-        body: [
-          "Two versions of the BudgetWise Personal Finance dataset were available on Kaggle — a cleaned one and a messy one. I picked the messy one on purpose: inconsistent currency symbols (₹, $, Rs., INR), mixed date formats, and sentinel values standing in for missing data are exactly the problems a production pipeline actually has to handle."
-        ]
-      },
-      {
-        h: "Where it stands",
-        list: [
-          "Repo and environment set up, with a data / notebooks / src structure and profiling findings committed to GitHub.",
-          "Cleaning pass done: deduplicated records, regenerated reliable transaction IDs, normalized categories and payment modes, stripped currency symbols and converted amounts to numeric, and replaced sentinel values with proper nulls.",
-          "Date parsing across the dataset's multiple formats is designed and next up to run."
-        ]
-      },
-      {
-        h: "Coming next",
-        list: [
-          "Finish date parsing, then refactor the cleaning notebook into reusable functions.",
-          "Build the feature engineering layer.",
-          "Train a transaction categorization model with an explainable decisions layer.",
-          "Expose it through FastAPI and put a React dashboard on top."
-        ]
-      }
-    ],
-    credit: "In progress · Personal project, Series 1 of 3"
-  },
-  {
-    id: "maternal-health-rag",
-    date: "2026",
-    status: "shipping",
-    dateLabel: "Health AI · Skill-building project",
-    tag: "RAG · Health AI",
-    tagColor: "var(--accent-amber)",
-    title: "A RAG assistant over the WHO antenatal care guidelines",
-    summary: "Retrieval-augmented generation over a 172-page WHO guideline document, built as a hands-on way into Health AI.",
-    readout: "retrieval gaps → fixes",
-    dek: "A retrieval-augmented generation assistant built over the WHO's antenatal care guideline document — the first of several hands-on Health AI projects exploring maternal and prenatal health, an area that's underserved by existing tooling.",
-    sections: [
-      {
-        h: "The setup",
-        body: [
-          "The pipeline loads the WHO Antenatal Care Guidelines PDF from page 13 onward (skipping frontmatter), splits it into roughly 689 chunks with a 1000-character window and 200-character overlap, embeds each chunk locally with sentence-transformers' all-MiniLM-L6-v2, and stores the result in a local Chroma vector database — LangChain tying the pipeline together."
-        ]
-      },
-      {
-        h: "Where it stands",
-        list: [
-          "Full pipeline is built and working end to end, with checkpoints committed to GitHub.",
-          "Testing retrieval against real queries surfaced two gaps worth fixing: vocabulary mismatches around antenatal-care terminology, and a genuine hole in the source document around danger signs during pregnancy."
-        ]
-      },
-      {
-        h: "Coming next",
-        list: [
-          "Close the vocabulary-mismatch gap so queries phrased in plain language still hit the right chunks.",
-          "Work out how to handle the danger-signs content gap in the source material itself.",
-          "Use this project as a proving ground for which AI subfield — AI Engineering, ML/Data Engineering, or Applied ML — to go deeper on next."
-        ]
-      }
-    ],
-    credit: "In progress · Health AI skill-building track"
-  }
-];
-
-const logList = document.getElementById("log-list");
-posts.forEach(p => {
-  const li = document.createElement("li");
-  const statusLabel = p.status === "shipping" ? "shipping" : "done";
-  li.innerHTML = `<a class="entry" href="#/${p.id}">
-      <span class="date mono">${p.date}</span>
+  <li><a class="entry" href="er-navigator.html">
+      <span class="date mono">2025</span>
       <span class="info">
-        <p class="title">${p.title}</p>
-        <p class="summary">${p.summary}</p>
+        <p class="title">ER Navigator: predicting wait times across 20 GTHA hospitals</p>
+        <p class="summary">A 5-model stacking ensemble taken from proof-of-concept to a production FastAPI + React system.</p>
       </span>
       <span style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
-        <span class="status ${p.status}"><span class="dot"></span>${statusLabel}</span>
-        <span class="readout mono" style="color:${p.tagColor}">${p.readout}</span>
+        <span class="status done"><span class="dot"></span>done</span>
+        <span class="readout mono" style="color:var(--accent-amber)">24.48 min MAE</span>
       </span>
-    </a>`;
-  logList.appendChild(li);
-});
+    </a></li>
+  <li><a class="entry" href="exogenai.html">
+      <span class="date mono">2025</span>
+      <span class="info">
+        <p class="title">ExoGenAI: a hybrid exoplanet detector for real telescope data</p>
+        <p class="summary">Physics-based pre-filtering plus a CNN-Transformer, born as a Space Apps entry, now being rebuilt on raw data.</p>
+      </span>
+      <span style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+        <span class="status done"><span class="dot"></span>done</span>
+        <span class="readout mono" style="color:var(--accent-blue)">99.1% accuracy</span>
+      </span>
+    </a></li>
+  <li><a class="entry" href="marine-species-classification.html">
+      <span class="date mono">2025</span>
+      <span class="info">
+        <p class="title">Three ways to classify marine species, compared head to head</p>
+        <p class="summary">A controlled comparison of custom CNNs, autoencoder pre-training, and transfer learning on the same dataset.</p>
+      </span>
+      <span style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+        <span class="status done"><span class="dot"></span>done</span>
+        <span class="readout mono" style="color:var(--accent-teal)">3 methods</span>
+      </span>
+    </a></li>
+  <li><a class="entry" href="budgetwise.html">
+      <span class="date mono">2026</span>
+      <span class="info">
+        <p class="title">BudgetWise: a personal finance pipeline, built on data that fights back</p>
+        <p class="summary">First of a three-project series — deliberately picked a messy dataset over a clean one to practice real-world data problems.</p>
+      </span>
+      <span style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+        <span class="status shipping"><span class="dot"></span>shipping</span>
+        <span class="readout mono" style="color:var(--accent-violet)">cleaning → modeling</span>
+      </span>
+    </a></li>
+  <li><a class="entry" href="maternal-health-rag.html">
+      <span class="date mono">2026</span>
+      <span class="info">
+        <p class="title">A RAG assistant over the WHO antenatal care guidelines</p>
+        <p class="summary">Retrieval-augmented generation over a 172-page WHO guideline document, built as a hands-on way into Health AI.</p>
+      </span>
+      <span style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+        <span class="status shipping"><span class="dot"></span>shipping</span>
+        <span class="readout mono" style="color:var(--accent-amber)">retrieval gaps → fixes</span>
+      </span>
+    </a></li>
+    </ul>
+  </div>
+  <footer class="site">
+  <div class="wrap">
+    <span>© 2026 Arsh Kaur</span>
+    <span class="mono">status: shipping</span>
+  </div>
+</footer>
 
-const homeEl = document.getElementById("home");
-const articleEl = document.getElementById("article");
-
-function renderArticle(post) {
-  let html = `<a class="back-link" href="#/">&larr; All entries</a>
-    <article>
-      <div class="art-head">
-        <span class="tag" style="--tag-color:${post.tagColor}">${post.tag}</span>
-        <span class="status ${post.status}" style="margin-left:8px;"><span class="dot"></span>${post.status === "shipping" ? "shipping" : "done"}</span>
-        <h1>${post.title}</h1>
-        <p class="dek">${post.dek}</p>
-        <p class="art-meta mono">${post.dateLabel}</p>
-      </div>`;
-  post.sections.forEach(s => {
-    html += `<h2>${s.h}</h2>`;
-    if (s.stats) {
-      html += `<div class="stat-grid">` + s.stats.map(st =>
-        `<div class="stat"><div class="val mono">${st.val}</div><div class="label">${st.label}</div></div>`
-      ).join("") + `</div>`;
-    }
-    if (s.body) {
-      s.body.forEach(par => { html += `<p>${par}</p>`; });
-    }
-    if (s.list) {
-      html += `<ul class="notes">` + s.list.map(item => `<li>${item}</li>`).join("") + `</ul>`;
-    }
-  });
-  html += `<div class="credit-box">${post.credit}</div>
-      <a class="back-link" href="#/">&larr; All entries</a>
-    </article>`;
-  articleEl.innerHTML = html;
-}
-
-const aboutEl = document.getElementById("about");
-
-function route() {
-  const hash = location.hash.replace(/^#\/?/, "");
-  const post = posts.find(p => p.id === hash);
-  homeEl.classList.remove("active");
-  articleEl.classList.remove("active");
-  aboutEl.classList.remove("active");
-  if (post) {
-    renderArticle(post);
-    articleEl.classList.add("active");
-  } else if (hash === "about") {
-    aboutEl.classList.add("active");
-  } else {
-    homeEl.classList.add("active");
-  }
-  window.scrollTo(0, 0);
-}
-window.addEventListener("hashchange", route);
-route();
-</script>
+</main>
 </body>
 </html>

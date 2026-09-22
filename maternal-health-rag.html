@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A RAG assistant over the WHO antenatal care guidelines — Arsh Kaur</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">arsh<span class="dot">·</span>log</a>
+    <nav class="site-nav">
+      <a href="index.html" class="current">Entries</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <a class="back-link" href="index.html">&larr; All entries</a>
+    <article>
+      <div class="art-head">
+        <span class="tag" style="--tag-color:var(--accent-amber)">RAG · Health AI</span>
+        <span class="status shipping"><span class="dot"></span>shipping</span>
+        <h1>A RAG assistant over the WHO antenatal care guidelines</h1>
+        <p class="dek">A retrieval-augmented generation assistant built over the WHO's antenatal care guideline document — the first of several hands-on Health AI projects exploring maternal and prenatal health, an area that's underserved by existing tooling.</p>
+        <p class="art-meta mono">Health AI · Skill-building project</p>
+      </div>
+      <h2>The setup</h2><p>The pipeline loads the WHO Antenatal Care Guidelines PDF from page 13 onward (skipping frontmatter), splits it into roughly 689 chunks with a 1000-character window and 200-character overlap, embeds each chunk locally with sentence-transformers' all-MiniLM-L6-v2, and stores the result in a local Chroma vector database — LangChain tying the pipeline together.</p><h2>Where it stands</h2><ul class="notes"><li>Full pipeline is built and working end to end, with checkpoints committed to GitHub.</li><li>Testing retrieval against real queries surfaced two gaps worth fixing: vocabulary mismatches around antenatal-care terminology, and a genuine hole in the source document around danger signs during pregnancy.</li></ul><h2>Coming next</h2><ul class="notes"><li>Close the vocabulary-mismatch gap so queries phrased in plain language still hit the right chunks.</li><li>Work out how to handle the danger-signs content gap in the source material itself.</li><li>Use this project as a proving ground for which AI subfield — AI Engineering, ML/Data Engineering, or Applied ML — to go deeper on next.</li></ul>
+      <div class="credit-box">In progress · Health AI skill-building track</div>
+      <a class="back-link" href="index.html">&larr; All entries</a>
+    </article>
+  </div>
+  <footer class="site">
+  <div class="wrap">
+    <span>© 2026 Arsh Kaur</span>
+    <span class="mono">status: shipping</span>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>

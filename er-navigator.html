@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ER Navigator: predicting wait times across 20 GTHA hospitals — Arsh Kaur</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">arsh<span class="dot">·</span>log</a>
+    <nav class="site-nav">
+      <a href="index.html" class="current">Entries</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <a class="back-link" href="index.html">&larr; All entries</a>
+    <article>
+      <div class="art-head">
+        <span class="tag" style="--tag-color:var(--accent-amber)">Healthcare · Forecasting</span>
+        <span class="status done"><span class="dot"></span>done</span>
+        <h1>ER Navigator: predicting wait times across 20 GTHA hospitals</h1>
+        <p class="dek">A stacking ensemble that predicts emergency room wait times at 30, 60, and 120-minute horizons across the Greater Toronto and Hamilton Area, built as a capstone project and pushed into a running production system.</p>
+        <p class="art-meta mono">COMP 385 Capstone</p>
+      </div>
+      <h2>The problem</h2><p>ER Navigator predicts emergency room wait times at 30, 60, and 120-minute horizons for 20 hospitals across the Greater Toronto and Hamilton Area. The target was ambitious going in: a mean absolute error under 30 minutes at the 60-minute horizon, with at least a 20% improvement over baseline methods.</p><p>Built with a team of five — Jaekyeong, Miguel, Varun, Younghun, and myself — under the supervision of Professor Mayy Habayeb, integrating live data from the ER Watch API alongside Environment Canada weather feeds.</p><h2>Architecture</h2><p>The core model is a 5-model stacking ensemble — LightGBM, XGBoost, CatBoost, Quantile Random Forest, and LightGBM Quantile — feeding an XGBoost meta-learner. 47 engineered features span temporal patterns, lag values, rolling statistics, hospital-specific aggregates, and weather.</p><p>What started as proof-of-concept modeling became a full production system: PostgreSQL for storage, FastAPI serving predictions, and a React frontend with interactive maps (react-leaflet) showing live wait-time estimates. The backend scrapes ER Watch every 15 minutes and layers conformal prediction on top of the point forecasts, giving 80% and 95% confidence intervals instead of a single misleading number.</p><h2>Results</h2><div class="stat-grid"><div class="stat"><div class="val mono">24.48 min</div><div class="label">MAE @ 60-min horizon</div></div><div class="stat"><div class="val mono">33%</div><div class="label">improvement over baseline</div></div><div class="stat"><div class="val mono">99.98%</div><div class="label">success rate under load</div></div><div class="stat"><div class="val mono">33.8 ms</div><div class="label">avg. response time</div></div></div><p>The final numbers beat the original target by 18%. Stress testing — after moving to a multi-worker Uvicorn setup with connection pooling — held a 99.98% success rate at 36+ requests per second, with an average response time of 33.8 milliseconds.</p><h2>What actually mattered</h2><ul class="notes"><li>Tree-based models beat classical time-series approaches by a wide margin — neural nets performed 4.3× worse than the tree ensemble.</li><li>Weather features were paradoxical: they hurt individual models but helped once the meta-learner combined everything.</li><li>Data quality was the real bottleneck. Only 21.73% of intervals landed within ±5 seconds of the expected 15-minute spacing, which meant resampling before any model would behave.</li><li>Temporal and lag features dominated feature importance — recent hospital state predicts near-term wait times better than almost anything else.</li><li>A simple persistence baseline is deceptively strong for short-horizon ER forecasting, since wait times are highly autocorrelated over 60 minutes.</li></ul>
+      <div class="credit-box">Team: Jaekyeong, Miguel, Varun, Younghun · Supervisor: Prof. Mayy Habayeb · Centennial College, COMP 385</div>
+      <a class="back-link" href="index.html">&larr; All entries</a>
+    </article>
+  </div>
+  <footer class="site">
+  <div class="wrap">
+    <span>© 2026 Arsh Kaur</span>
+    <span class="mono">status: shipping</span>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>

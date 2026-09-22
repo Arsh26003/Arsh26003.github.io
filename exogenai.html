@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ExoGenAI: a hybrid exoplanet detector for real telescope data — Arsh Kaur</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">arsh<span class="dot">·</span>log</a>
+    <nav class="site-nav">
+      <a href="index.html" class="current">Entries</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <a class="back-link" href="index.html">&larr; All entries</a>
+    <article>
+      <div class="art-head">
+        <span class="tag" style="--tag-color:var(--accent-blue)">Astronomy · Deep Learning</span>
+        <span class="status done"><span class="dot"></span>done</span>
+        <h1>ExoGenAI: a hybrid exoplanet detector for real telescope data</h1>
+        <p class="dek">A hybrid exoplanet detection system that pairs the Box Least Squares algorithm with a CNN-Transformer classifier — started as a NASA Space Apps Challenge entry, now being rebuilt to handle raw telescope data instead of pre-cleaned datasets.</p>
+        <p class="art-meta mono">NASA Space Apps 2025</p>
+      </div>
+      <h2>The problem</h2><p>ExoGenAI analyzes stellar light curves from space telescopes to classify confirmed exoplanets, candidates, and false positives — with enough transparency that an astronomer can see why the model made its call, not just trust a black box.</p><p>It started as a winning entry at NASA's Space Apps Challenge 2025 and has since become an ongoing effort to turn that prototype into a tool that fits real astronomical workflows. I handle model training and the backend; teammates handle frontend integration and presentation.</p><h2>Architecture</h2><p>The core idea is hybrid by design: the Box Least Squares (BLS) algorithm does physics-based pre-filtering before a CNN-Transformer network — 2.5 million parameters — handles classification. Pairing a physics-grounded filter with a learned model was a deliberate choice to keep the system interpretable rather than just accurate.</p><p>The backend runs on FastAPI, with Lightkurve handling astronomical data preprocessing ahead of the model.</p><h2>Results</h2><div class="stat-grid"><div class="stat"><div class="val mono">99.1%</div><div class="label">classification accuracy</div></div><div class="stat"><div class="val mono">2.5M</div><div class="label">model parameters</div></div><div class="stat"><div class="val mono">3</div><div class="label">hackathon awards</div></div></div><p>The hackathon build placed strongly enough to earn three awards at Space Apps 2025. The honest caveat: it was trained on just over 5,000 samples from a single pre-processed dataset, which is nowhere near enough for real telescope observations — and that gap became the next phase of the project.</p><h2>Rebuilding on raw data</h2><p>Pre-processed, competition-ready data produces a model that doesn't survive contact with real telescope output — raw data needs its own preprocessing pipeline that a cleaned Kaggle dataset can't teach you. That realization drove a pivot toward Lightkurve, the NASA Exoplanet Archive, and the MAST Archive as raw data sources, with a goal of scaling training data past 50,000 samples across Kepler-confirmed planets, false positives, candidates, and TESS mission data.</p><h2>What actually mattered</h2><ul class="notes"><li>Astronomical data is genuinely, not artificially, imbalanced — 99%+ false positives — which called for weighted cross-entropy loss rather than more data cleaning.</li><li>The hybrid approach earns its complexity: physics-based validation plus deep learning gives both performance and the interpretability real astronomical workflows need.</li><li>Polished hackathon documentation and the underlying codebase diverge more than expected — worth auditing what actually exists before planning the next phase.</li><li>Since NASA data is public domain, open-sourcing the model is confirmed to be legally viable.</li></ul>
+      <div class="credit-box">NASA Space Apps Challenge 2025 · Data: Lightkurve, NASA Exoplanet Archive, MAST Archive</div>
+      <a class="back-link" href="index.html">&larr; All entries</a>
+    </article>
+  </div>
+  <footer class="site">
+  <div class="wrap">
+    <span>© 2026 Arsh Kaur</span>
+    <span class="mono">status: shipping</span>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>

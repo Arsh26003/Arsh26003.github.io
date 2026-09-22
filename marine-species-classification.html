@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Three ways to classify marine species, compared head to head — Arsh Kaur</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">arsh<span class="dot">·</span>log</a>
+    <nav class="site-nav">
+      <a href="index.html" class="current">Entries</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <a class="back-link" href="index.html">&larr; All entries</a>
+    <article>
+      <div class="art-head">
+        <span class="tag" style="--tag-color:var(--accent-teal)">Computer Vision · Deep Learning</span>
+        <span class="status done"><span class="dot"></span>done</span>
+        <h1>Three ways to classify marine species, compared head to head</h1>
+        <p class="dek">A six-person coursework project that put three deep learning approaches — a custom CNN, unsupervised autoencoder pre-training, and transfer learning — through the same marine species classification task, to see which assumptions actually held up.</p>
+        <p class="art-meta mono">Deep Learning Coursework</p>
+      </div>
+      <h2>The setup</h2><p>Rather than picking one architecture and tuning it, the project was built as a controlled comparison: run a custom CNN, an autoencoder-based unsupervised approach, and transfer learning against the same marine species dataset and see where each one actually breaks down. Working in a six-person team, the goal was as much about understanding relative strengths and failure modes as it was about raw accuracy.</p><p>The dataset came with real-world friction from the start — class imbalance and a scope that had to be adjusted once the original plan turned out to be computationally infeasible on the hardware available.</p><h2>Approach</h2><p>The comparison spanned custom CNN architectures, unsupervised learning with autoencoders, and transfer learning using pre-trained models — including VGG-style networks, ResNet50, and EfficientNet on top of ImageNet weights. Class imbalance was handled with weighted loss functions rather than just resampling.</p><p>Partway through, the toolchain moved from TensorFlow to PyTorch for better GPU compatibility, training on an RTX 3070.</p><h2>What actually mattered</h2><ul class="notes"><li>Model complexity has to match dataset size — the more expressive architectures overfit fastest when labeled data was limited.</li><li>Supervised learning clearly outperformed unsupervised pre-training once enough labeled data was available, which wasn't a given going in.</li><li>Transfer learning delivered the most reliable gains of the three, leveraging ImageNet pre-training rather than learning marine-specific features from scratch.</li><li>Scope has to flex with compute — when the original plan proved computationally infeasible, adjusting scope rather than forcing it through was what kept the comparison meaningful.</li></ul>
+      <div class="credit-box">Six-person team project · Deep Learning coursework</div>
+      <a class="back-link" href="index.html">&larr; All entries</a>
+    </article>
+  </div>
+  <footer class="site">
+  <div class="wrap">
+    <span>© 2026 Arsh Kaur</span>
+    <span class="mono">status: shipping</span>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>
