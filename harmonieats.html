@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HarmoniEats: an AI meal planner that reads your groceries — Arsh Kaur</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">arsh<span class="dot">·</span>log</a>
+    <nav class="site-nav">
+      <a href="index.html" class="current">Entries</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com/Arsh26003" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <a class="back-link" href="index.html">&larr; All entries</a>
+    <article>
+      <div class="art-head">
+        <span class="tag" style="--tag-color:var(--accent-teal)">GenAI · Cloud · Serverless</span>
+        <span class="status done"><span class="dot"></span>done</span>
+        <h1>HarmoniEats: an AI meal planner that reads your groceries</h1>
+        <p class="dek">A cloud-native food management platform that detects grocery items from photos and receipts, keeps a live household inventory, and suggests meals around whatever is closest to expiring, with the goal of cutting manual entry and household food waste.</p>
+        <p class="art-meta mono">Team Project · AWS</p>
+      </div>
+      <h2>The problem</h2><p>Tracking what's in the fridge is tedious enough that most people don't do it, so food gets forgotten until it's spoiled. HarmoniEats removes the manual step: snap a photo of your groceries or your receipt, and the inventory updates itself.</p><h2>Detection</h2><p>AWS Rekognition identifies grocery items from photos, and AWS Textract pulls line items from receipts. Detections aren't always confident or cleanly named, so I added a custom fuzzy-matching fallback that maps low-confidence results onto known items instead of dropping them or polluting the inventory.</p><h2>Architecture</h2><p>The backend is fully serverless, built with AWS Chalice on Lambda:</p><ul class="notes"><li><strong>DynamoDB</strong> holds the inventory.</li><li><strong>S3</strong> stores uploaded photos and receipts.</li><li><strong>Cognito</strong> handles multi-user authentication, so a whole household can share one inventory.</li><li><strong>SNS</strong> sends automated alerts when items are about to expire.</li></ul><h2>Meal suggestions</h2><p>The suggestion engine pulls recipes from the Spoonacular API and ranks them against the live inventory, prioritising ingredients by expiry urgency and filtering by each user's dietary preferences. The idea is that the app always points you at the meal that saves the most food.</p><h2>What actually mattered</h2><ul class="notes"><li>Vision and OCR output needs a cleanup layer before it touches your data. The fuzzy-matching fallback did more for usability than tuning detection thresholds did.</li><li>Going serverless kept the backend small and cheap to run, and let each AWS service do one job.</li><li>Ranking recipes by expiry urgency, not just ingredient overlap, is what made the suggestions actually reduce waste.</li></ul>
+      <div class="credit-box">Co-developed team project · AWS Rekognition, Textract, Chalice, Lambda, DynamoDB, S3, Cognito, SNS · Spoonacular API</div>
+      <a class="back-link" href="index.html">&larr; All entries</a>
+    </article>
+  </div>
+  <footer class="site">
+  <div class="wrap">
+    <span>© 2026 Arsh Kaur</span>
+    <span class="mono">status: shipping</span>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>

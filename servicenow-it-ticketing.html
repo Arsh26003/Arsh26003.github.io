@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>An IT support ticketing app, built as a scoped ServiceNow application — Arsh Kaur</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">arsh<span class="dot">·</span>log</a>
+    <nav class="site-nav">
+      <a href="index.html" class="current">Entries</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com/Arsh26003" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <a class="back-link" href="index.html">&larr; All entries</a>
+    <article>
+      <div class="art-head">
+        <span class="tag" style="--tag-color:var(--accent-blue)">ServiceNow · IT Service Management</span>
+        <span class="status done"><span class="dot"></span>done</span>
+        <h1>An IT support ticketing app, built as a scoped ServiceNow application</h1>
+        <p class="dek">A ticketing system built from scratch on the ServiceNow platform. It covers the full lifecycle of a support ticket, from creation and routing through validation, notification, and resolution.</p>
+        <p class="art-meta mono">Scoped Application Development</p>
+      </div>
+      <h2>Data model</h2><p>The app lives in its own scope, with custom tables for tickets, reference and choice fields for requesters, categories, and priority, and automated ticket numbering. Resolution tracking is built into the record, so every ticket carries its own history of when and how it was closed.</p><h2>Form behaviour on the client</h2><ul class="notes"><li><strong>Client Scripts</strong> drive dynamic form behaviour, such as a warning when a ticket is marked critical priority.</li><li><strong>UI Policies</strong> make resolution details required only when the ticket is actually being resolved, so the form asks for information at the moment it matters.</li></ul><h2>Rules on the server</h2><ul class="notes"><li><strong>Business Rules</strong> stamp the resolution timestamp automatically, so it never depends on someone remembering to fill it in.</li><li>A validation rule blocks a ticket from being resolved unless it has been assigned, which keeps ownership clear on every closed ticket.</li></ul><h2>Live open-ticket count</h2><p>When a requester is selected, the form shows how many tickets they already have open. A client-callable Script Include queries the ticket table with GlideRecord, and the form calls it through GlideAjax, so the count updates without a page reload. It gives support staff context before they start working on a new request.</p><h2>Routing and notifications</h2><p>Assignment groups route tickets to the right support team, and the assignee field depends on the chosen group, so only members of that group can be picked. Email notifications go out to assignees whenever an assignment changes.</p><h2>Testing</h2><p>I tested the whole flow end to end: ticket creation, assignment, client and server-side validation, notifications, and resolution. That way each rule was checked against the others, not just on its own.</p>
+      <div class="credit-box">ServiceNow · Client Scripts, UI Policies, Business Rules, Script Includes, GlideAjax, GlideRecord, Notifications</div>
+      <a class="back-link" href="index.html">&larr; All entries</a>
+    </article>
+  </div>
+  <footer class="site">
+  <div class="wrap">
+    <span>© 2026 Arsh Kaur</span>
+    <span class="mono">status: shipping</span>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>

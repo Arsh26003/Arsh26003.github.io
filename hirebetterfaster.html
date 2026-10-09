@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HireBetterFaster: hybrid retrieval and bias checks for an AI hiring platform — Arsh Kaur</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%A1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">arsh<span class="dot">·</span>log</a>
+    <nav class="site-nav">
+      <a href="index.html" class="current">Entries</a>
+      <a href="about.html">About</a>
+      <a href="https://github.com/Arsh26003" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <a class="back-link" href="index.html">&larr; All entries</a>
+    <article>
+      <div class="art-head">
+        <span class="tag" style="--tag-color:var(--accent-violet)">RAG · LLMs · Responsible AI</span>
+        <span class="status done"><span class="dot"></span>done</span>
+        <h1>HireBetterFaster: hybrid retrieval and bias checks for an AI hiring platform</h1>
+        <p class="dek">HireBetterFaster.com is an AI hiring platform. As its AI Specialist, I built the retrieval layer behind resume Q&amp;A and candidate ranking, the LLM workflows that pull structured data out of documents, and the tooling that keeps candidate scoring fair.</p>
+        <p class="art-meta mono">AI Specialist · HireBetterFaster.com</p>
+      </div>
+      <h2>Hybrid retrieval</h2><p>Semantic search alone misses exact terms like a specific framework or certification, and keyword search alone misses paraphrases. So the retrieval layer runs both:</p><ul class="notes"><li><strong>Semantic search</strong> uses BAAI/bge-small-en-v1.5 embeddings stored in PostgreSQL with pgvector.</li><li><strong>Keyword search</strong> uses PostgreSQL full-text search over the same documents.</li><li><strong>Reciprocal Rank Fusion (RRF)</strong> merges the two ranked lists into one, without having to calibrate their scores against each other.</li></ul><div class="stat-grid"><div class="stat"><div class="val mono">10,000+</div><div class="label">document chunks indexed</div></div><div class="stat"><div class="val mono">2</div><div class="label">retrievers fused with RRF</div></div><div class="stat"><div class="val mono">30%+</div><div class="label">token overhead cut</div></div></div><p>That fused retrieval powers both resume Q&amp;A and candidate ranking.</p><h2>LLM extraction workflows</h2><p>Metadata and skill extraction run on Groq using qwen/qwen3-32b. The model emits its reasoning trace alongside the answer, and that trace was being carried into downstream steps as wasted tokens. I wrote custom regex sanitization to strip it from the output, which cut token overhead by more than 30%.</p><h2>Fairness: FairLens Enhance</h2><p>FairLens Enhance is a bias-detection engine I designed for job postings. It flags gendered and age-coded language before a posting goes out.</p><p>On the candidate side, a PII-stripping pipeline removes name, location, email, and gender before any scoring happens, so the model never sees them. Each evaluation also produces an auto-generated fairness audit report.</p><h2>What actually mattered</h2><ul class="notes"><li>Hybrid retrieval with RRF is a cheap, robust default. It catches what each retriever misses on its own, with no score tuning.</li><li>Reasoning models need output hygiene. Stripping the thinking trace saved tokens on every downstream call.</li><li>Fairness has to be built into the pipeline itself. Removing PII before scoring is a structural guarantee, not a policy someone has to remember.</li></ul>
+      <div class="credit-box">AI Specialist, HireBetterFaster.com · bge-small-en-v1.5, PostgreSQL + pgvector, full-text search, RRF, Groq (qwen3-32b)</div>
+      <a class="back-link" href="index.html">&larr; All entries</a>
+    </article>
+  </div>
+  <footer class="site">
+  <div class="wrap">
+    <span>© 2026 Arsh Kaur</span>
+    <span class="mono">status: shipping</span>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>
